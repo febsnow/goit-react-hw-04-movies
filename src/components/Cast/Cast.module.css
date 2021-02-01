@@ -1,0 +1,19 @@
+.castList {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+}
+
+.castListItem {
+  width: 70px;
+  font-size: 10px;
+  text-align: center;
+  margin-right: 5px;
+}
+
+.castListItem p {
+  /* margin: 0 0 5px 0; */
+}

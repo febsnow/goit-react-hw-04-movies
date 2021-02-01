@@ -1,0 +1,52 @@
+.moviePage {
+  padding-top: 10px;
+  padding-left: 35px;
+  padding-right: 35px;
+  background-color: lightgray;
+}
+
+.moviePage h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.moviePage p {
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.movieCard {
+  display: flex;
+  align-items: item center;
+}
+
+.movieCard img {
+  width: 300px;
+  height: 100%;
+}
+
+.movieInfo {
+  margin-left: 15px;
+}
+
+.additionsList {
+  margin-top: 0;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.additionsListItem {
+  font-size: 16px;
+  color: #ffff;
+  font-weight: 500;
+  color: rgba(16, 5, 109, 0.863);
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.additionsListItem:hover {
+  /* color: rgba(16, 5, 109, 0.863); */
+  background-color: #ffffff;
+}

@@ -1,0 +1,35 @@
+.movieList {
+  text-align: center;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding-top: 10px;
+  padding-left: 35px;
+  padding-right: 35px;
+  background-color: lightgray;
+}
+
+.movieCard {
+  margin: 10px auto;
+  background-color: #ffffff;
+  border: 1px solid gray;
+}
+
+.movieCard a {
+  color: rgba(16, 5, 109, 0.863);
+  text-decoration: none;
+}
+
+.movieCard img {
+  /* width: 150px; */
+  /* margin-bottom: 10px; */
+}
+
+.movieCard h2 {
+  margin: 0;
+  padding: 20px 10px;
+  font-size: 18px;
+}

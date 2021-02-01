@@ -1,0 +1,38 @@
+.Nav {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  background-color: rgba(16, 5, 109, 0.863);
+  /* margin-bottom: 15px; */
+  padding-left: 55px;
+  padding-right: 55px;
+}
+
+.NavList {
+  padding: 0;
+  display: flex;
+  list-style: none;
+}
+
+.NavLink {
+  font-size: 16px;
+  color: #ffff;
+  font-weight: 500;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.NavLink:hover,
+.NavLink:focus {
+  color: rgba(16, 5, 109, 0.863);
+  background-color: #ffff;
+}
+
+.NavLink:first-child {
+  margin-right: 10px;
+}
+
+.NavLinkActive {
+  color: rgba(16, 5, 109, 0.863);
+  background-color: #ffff;
+}

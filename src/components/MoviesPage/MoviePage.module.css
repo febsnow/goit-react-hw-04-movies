@@ -1,0 +1,13 @@
+.searchForm {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.searchInput {
+  font-size: 16px;
+  height: 45px;
+  width: 350px;
+  background-color: inherit;
+  padding: 5px 10px;
+  border: none;
+}

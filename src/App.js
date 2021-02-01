@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { NavLink, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import MovieDetailsPage from "./components/MovieDetailsPage/MovieDetailsPage";
 import MoviesPage from "./components/MoviesPage/MoviesPage";
+import NavBar from "./components/NavBar/NavBar";
 import TrandingMovies from "./components/TrandingMovies/TrandingMovies";
-
+import "./components/styles.css";
 // В приложении должны быть следующие маршруты. Если пользователь зашел по несуществующему маршруту, его необходимо перенаправлять на домашнюю страницу.
 
 // '/' - компонент <HomePage>, домашняя страница со списком популярных кинофильмов.
@@ -17,14 +18,7 @@ class App extends Component {
   render() {
     return (
       <>
-        <ul>
-          <li>
-            <NavLink to="/">Home</NavLink>
-          </li>
-          <li>
-            <NavLink to="/movies">Search</NavLink>
-          </li>
-        </ul>
+        <NavBar />
         <Switch>
           <Route path="/" exact component={TrandingMovies}></Route>
           <Route path="/movies" exact component={MoviesPage}></Route>
