@@ -4,50 +4,55 @@ import axios from "axios";
 import Cast from "../Cast/Cast";
 import Reviews from "../Reviews/Reviews";
 import styles from "./MovieDetailsPage.module.css";
+import PreLoader from "../Loader/Loader";
 
 class MovieDetailsPage extends Component {
   state = {
     movie: null,
+    loader: false,
+    error: null,
   };
 
   async componentDidMount() {
+    this.setState({ loader: true, error: null });
     const movie = await axios
       .get(
         `https://api.themoviedb.org/3/movie/${this.props.match.params.movieId}?api_key=baba47ca8377e85152497efe5912a75b`
       )
-      .then(({ data }) => data);
-    this.setState({ movie: movie });
+      .then(({ data }) => data)
+      .catch((error) => this.setState({ error: error }));
+    this.setState({ movie: movie, loader: false });
   }
 
   render() {
-    const url = "https://www.themoviedb.org/t/p/w300_and_h450_bestv2";
+    const imgUrl = "https://www.themoviedb.org/t/p/w300_and_h450_bestv2";
+    const { movie, loader, error } = this.state;
+    const { path, url } = this.props.match;
 
     return (
       <div className={styles.moviePage}>
-        {this.state.movie && (
+        {loader && <PreLoader />}
+        {movie && (
           <div className={styles.movieCard}>
             <img
-              src={`${url}${this.state.movie.poster_path}`}
-              alt={this.state.movie.original_title}
+              src={`${imgUrl}${movie.poster_path}`}
+              alt={movie.original_title}
             />
             <div className={styles.movieInfo}>
               <h2>
-                {this.state.movie.title} ({this.state.movie.release_date})
+                {movie.title} ({movie.release_date})
               </h2>
 
-              <p>{this.state.movie.overview}</p>
+              <p>{movie.overview}</p>
               <ul className={styles.additionsList}>
                 <li>
-                  <Link
-                    to={`${this.props.match.url}/cast`}
-                    className={styles.additionsListItem}
-                  >
+                  <Link to={`${url}/cast`} className={styles.additionsListItem}>
                     Cast
                   </Link>
                 </li>
                 <li>
                   <Link
-                    to={`${this.props.match.url}/reviews`}
+                    to={`${url}/reviews`}
                     className={styles.additionsListItem}
                   >
                     Reviews
@@ -55,14 +60,8 @@ class MovieDetailsPage extends Component {
                 </li>
               </ul>
               <Switch>
-                <Route
-                  path={`${this.props.match.path}/cast`}
-                  component={Cast}
-                ></Route>
-                <Route
-                  path={`${this.props.match.path}/reviews`}
-                  component={Reviews}
-                ></Route>
+                <Route path={`${path}/cast`} component={Cast}></Route>
+                <Route path={`${path}/reviews`} component={Reviews}></Route>
               </Switch>
             </div>
           </div>

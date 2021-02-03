@@ -5,7 +5,7 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 const PreLoader = (props) => {
   return (
     <Loader
-      style={{ marginLeft: "auto", marginRight: "auto" }}
+      style={{ textAlign: "center" }}
       type="TailSpin"
       color="#3f51b5"
       height={300}

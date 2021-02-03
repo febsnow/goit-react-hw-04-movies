@@ -1,16 +1,17 @@
 import React, { Component } from "react";
-import "../styles.css";
+import styles from "./SearchBar.module.css";
 
 export default class SearchBar extends Component {
   state = {
     value: "",
+    error: null,
   };
 
   submitHandler = (evt) => {
     evt.preventDefault();
-    if (this.state.value.trim() === '') {
+    if (this.state.value.trim() === "") {
       this.setState({ value: "" });
-      return alert('Enter something')
+      return alert("Enter something");
     }
     this.props.onSubmit(this.state.value.toLowerCase().trim());
     this.setState({ value: "" });
@@ -23,23 +24,16 @@ export default class SearchBar extends Component {
 
   render() {
     return (
-      <header className="Searchbar">
-        <form className="SearchForm" onSubmit={this.submitHandler}>
-          <button type="submit" className="SearchForm-button">
-            <span className="SearchForm-button-label">Search</span>
-          </button>
-
-          <input
-            className="SearchForm-input"
-            type="text"
-            autoComplete="off"
-            autoFocus
-            placeholder="Search images and photos"
-            onChange={this.changeHandler}
-            value={this.state.value}
-          />
-        </form>
-      </header>
+      <form className={styles.searchForm} onSubmit={this.submitHandler}>
+        <input
+          className={styles.searchInput}
+          type="text"
+          autoFocus
+          placeholder="enter search request"
+          value={this.state.value}
+          onChange={this.changeHandler}
+        />
+      </form>
     );
   }
 }

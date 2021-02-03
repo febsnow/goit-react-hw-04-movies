@@ -20,6 +20,7 @@ const NavBar = () => {
           <NavLink
             className={styles.NavLink}
             activeClassName={styles.NavLinkActive}
+            exact
             to="/movies"
           >
             Search
