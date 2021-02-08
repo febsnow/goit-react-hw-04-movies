@@ -1,13 +1,17 @@
 import React, { Component, lazy, Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
-import TrandingMovies from "./views/TrandingMovies/TrandingMovies";
+import TrendingMovies from "./views/TrendingMovies/TrendingMovies";
 import PreLoader from "./components/Loader/Loader";
 import "./components/styles.css";
 import routes from "./routes";
 import { Flip, ToastContainer } from "react-toastify";
 
-const MoviesPageView = lazy(() => import("./views/MoviesPage/MoviesPage" /*webpackChunkName: "moviesPageView" */));
+const MoviesPageView = lazy(() =>
+  import(
+    "./views/MoviesPage/MoviesPage" /*webpackChunkName: "moviesPageView" */
+  )
+);
 
 const MovieDetailsView = lazy(() =>
   import(
@@ -32,9 +36,16 @@ class App extends Component {
         />
         <Suspense fallback={<PreLoader />}>
           <Switch>
-            <Route path={routes.home} exact component={TrandingMovies}></Route>
-            <Route path={routes.movies} exact component={MoviesPageView}></Route>
-            <Route path={routes.movieDetails} component={MovieDetailsView}></Route>
+            <Route path={routes.home} exact component={TrendingMovies}></Route>
+            <Route
+              path={routes.movies}
+              exact
+              component={MoviesPageView}
+            ></Route>
+            <Route
+              path={routes.movieDetails}
+              component={MovieDetailsView}
+            ></Route>
           </Switch>
         </Suspense>
       </>

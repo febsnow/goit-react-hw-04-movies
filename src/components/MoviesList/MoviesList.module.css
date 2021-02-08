@@ -1,3 +1,9 @@
+.title {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
 .movieList {
   text-align: center;
   list-style: none;

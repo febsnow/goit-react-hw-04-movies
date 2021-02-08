@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import routes from "../../routes";
 import styles from "./NavBar.module.css";
 
 const NavBar = () => {
@@ -11,7 +12,7 @@ const NavBar = () => {
             className={styles.NavLink}
             activeClassName={styles.NavLinkActive}
             exact
-            to="/"
+            to={routes.home}
           >
             Home
           </NavLink>
@@ -21,7 +22,7 @@ const NavBar = () => {
             className={styles.NavLink}
             activeClassName={styles.NavLinkActive}
             exact
-            to="/movies"
+            to={routes.movies}
           >
             Search
           </NavLink>

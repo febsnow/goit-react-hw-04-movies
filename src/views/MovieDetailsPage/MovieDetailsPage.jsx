@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { toast } from "react-toastify";
 import PreLoader from "../../components/Loader/Loader";
 import MovieCard from "../../components/MovieCard/MovieCard";
+import routes from "../../routes";
 import { getMovieDetails } from "../../utils/api";
 import styles from "./MovieDetailsPage.module.css";
 
@@ -15,10 +16,8 @@ class MovieDetailsPage extends Component {
   componentDidMount() {
     this.setState({ loader: true, error: null });
     getMovieDetails(this.props.match.params.movieId)
-      .then(({ data }) => 
-        this.setState({ movie: data })
-      )
-      .catch((error) => this.setState({ error: error }))
+      .then(({ data }) => this.setState({ movie: data }))
+      .catch((error) => toast.error(error))
       .finally(this.setState({ loader: false }));
   }
 
@@ -29,7 +28,7 @@ class MovieDetailsPage extends Component {
       return this.props.history.push(state.from);
     }
 
-    this.props.history.push("/");
+    this.props.history.push(routes.home);
   };
 
   render() {

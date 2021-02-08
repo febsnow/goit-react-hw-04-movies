@@ -4,7 +4,15 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 import PreLoader from "../../components/Loader/Loader";
 import { getMovies, getTopRatedMovies } from "../../utils/api";
 import { toast } from "react-toastify";
+import routes from "../../routes";
 // import styles from "./MoviesPage.module.css";
+
+const MoviesList = lazy(
+  () =>
+    import(
+      "../../components/MoviesList/MoviesList"
+    ) /* webpackChunkName: "movies-list" */
+);
 
 class MoviesPage extends Component {
   state = {
@@ -12,31 +20,32 @@ class MoviesPage extends Component {
   };
 
   submitHandler = (query) => {
-    this.props.history.push({
-      pathname: this.props.location.pathname,
-      search: `query=${query}`,
-    });
+    if (query !== "") {
+      this.props.history.push({
+        pathname: this.props.location.pathname,
+        search: `query=${query}`,
+      });
+    }
   };
 
   fetchMovies = (query) => {
-    getMovies(query).then(({ data }) =>
-    {
-      if (data.results.length === 0)
-      {
-        this.props.history.push( '/movies');
-        return toast.warn("Nothing found")
+    getMovies(query).then(({ data }) => {
+      if (data.results.length === 0) {
+        this.setState({ movies: null });
+        return toast.warn("Nothing found");
       }
-      this.setState({ movies: data.results })
-    }
-    );
+      console.log("fetch");
+      this.setState({ movies: data.results });
+    });
   };
 
   componentDidMount() {
     const { query } = queryParse(this.props.location.search);
-
+    console.log("mount");
     if (query) {
       return this.fetchMovies(query);
     }
+
     getTopRatedMovies().then(({ data }) =>
       this.setState({ movies: data.results })
     );
@@ -45,25 +54,33 @@ class MoviesPage extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { query: prevQuery } = queryParse(prevProps.location.search);
     const { query: newQuery } = queryParse(this.props.location.search);
+    console.log("prev", prevQuery);
+    console.log("new", newQuery);
 
-    if (!prevQuery && prevQuery !== newQuery) {
+    if (prevQuery !== newQuery && newQuery) {
+      console.log("update");
       this.fetchMovies(newQuery);
     }
   }
 
   render() {
-    const MoviesList = lazy(
-      () =>
-        import(
-          "../../components/MoviesList/MoviesList"
-        ) /* webpackChunkName: "movies-list" */
-    );
     const { movies } = this.state;
+    const { query } = queryParse(this.props.location.search);
+
     return (
       <>
         <SearchBar onSubmit={this.submitHandler} />
         <Suspense fallback={<PreLoader />}>
-          {movies && <MoviesList movies={movies} />}
+          {movies && (
+            <MoviesList
+              movies={movies}
+              title={
+                this.props.location.search === ""
+                  ? "Top rated movies"
+                  : `Search result for "${query}"`
+              }
+            />
+          )}
         </Suspense>
         {/* {movies && (
           <ul className={styles.movieList}>

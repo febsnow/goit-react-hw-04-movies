@@ -3,10 +3,12 @@ import axios from "axios";
 const KEY = "baba47ca8377e85152497efe5912a75b";
 const URL = "https://api.themoviedb.org/3";
 
-export function getTrandingMovies() {
+export function getTrendingMovies() {
   const endPoint = "trending/movie/day";
 
-  return axios.get(`${URL}/${endPoint}?api_key=${KEY}`).then(({ data }) => data.results);
+  return axios
+    .get(`${URL}/${endPoint}?api_key=${KEY}`)
+    .then(({ data }) => data.results);
 }
 
 export function getMovies(query) {
