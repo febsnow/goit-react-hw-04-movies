@@ -1,17 +1,23 @@
-import React, { Component } from "react";
+import React, { Component, lazy, Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
-import MovieDetailsPage from "./components/MovieDetailsPage/MovieDetailsPage";
-import MoviesPage from "./components/MoviesPage/MoviesPage";
 import NavBar from "./components/NavBar/NavBar";
-import TrandingMovies from "./components/TrandingMovies/TrandingMovies";
+import TrandingMovies from "./views/TrandingMovies/TrandingMovies";
+import PreLoader from "./components/Loader/Loader";
 import "./components/styles.css";
-// В приложении должны быть следующие маршруты. Если пользователь зашел по несуществующему маршруту, его необходимо перенаправлять на домашнюю страницу.
+import routes from "./routes";
 
-// '/' - компонент <HomePage>, домашняя страница со списком популярных кинофильмов.
-// '/movies' - компонент <MoviesPage>, страница поиска фильмов по ключевому слову.
-// '/movies/:movieId' - компонент <MovieDetailsPage>, страница с детальной информацией о кинофильме.
-// /movies/:movieId/cast - компонент <Cast>, информация о актерском составе. Рендерится на странице <MovieDetailsPage>.
-// /movies/:movieId/reviews - компонент <Reviews>, информация об обзорах. Рендерится на странице <MovieDetailsPage>.
+const MoviesPageView = lazy(() =>
+  import(
+    "./views/MoviesPage/MoviesPage" /*webpackChunkName: "moviesPageView" */
+  )
+);
+
+const MovieDetailsView = lazy(() =>
+  import(
+    "./views/MovieDetailsPage/MovieDetailsPage"
+    /*webpackChunkName: "movieDetailsView-page" */
+  )
+);
 
 class App extends Component {
   state = {};
@@ -19,11 +25,20 @@ class App extends Component {
     return (
       <>
         <NavBar />
-        <Switch>
-          <Route path="/" exact component={TrandingMovies}></Route>
-          <Route path="/movies" exact component={MoviesPage}></Route>
-          <Route path="/movies/:movieId" component={MovieDetailsPage}></Route>
-        </Switch>
+        <Suspense fallback={<PreLoader />}>
+          <Switch>
+            <Route path={routes.home} exact component={TrandingMovies}></Route>
+            <Route
+              path={routes.movies}
+              exact
+              component={MoviesPageView}
+            ></Route>
+            <Route
+              path={routes.movieDetails}
+              component={MovieDetailsView}
+            ></Route>
+          </Switch>
+        </Suspense>
       </>
     );
   }

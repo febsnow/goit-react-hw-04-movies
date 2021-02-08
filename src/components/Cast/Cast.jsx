@@ -1,22 +1,20 @@
 import React, { Component } from "react";
-import axios from "axios";
+import { getMovieCredits } from "../../utils/api";
 import styles from "./Cast.module.css";
+import noPhoto from "../../noPhoto.jpg";
 
 class Cast extends Component {
   state = {
     movie: null,
   };
-  async componentDidMount() {
-    const movie = await axios
-      .get(
-        `https://api.themoviedb.org/3/movie/${this.props.match.params.movieId}/credits?api_key=baba47ca8377e85152497efe5912a75b`
-      )
-      .then(({ data }) => data);
-    this.setState({ movie: movie });
-  }
 
+  componentDidMount() {
+    getMovieCredits(this.props.match.params.movieId)
+      .then(({ data }) => this.setState({ movie: data }))
+      .catch((error) => console.log(error));
+  }
   render() {
-    const url = "https://www.themoviedb.org/t/p/w300_and_h450_bestv2";
+    const url = "https://www.themoviedb.org/t/p/w185";
     return (
       <>
         {this.state.movie && (
@@ -24,7 +22,11 @@ class Cast extends Component {
             {this.state.movie.cast.map((actor) => (
               <li key={actor.id} className={styles.castListItem}>
                 <img
-                  src={`${url}/${actor.profile_path}`}
+                  src={
+                    actor.profile_path === null
+                      ? noPhoto
+                      : `${url}/${actor.profile_path}`
+                  }
                   alt={actor.name}
                 ></img>
                 <p>{actor.name}</p>

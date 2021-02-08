@@ -1,0 +1,36 @@
+.movieList {
+  text-align: center;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  /* margin: 0 auto; */
+  padding-top: 10px;
+  padding-left: 35px;
+  padding-right: 35px;
+  background-color: lightgray;
+}
+
+.movieItem {
+  margin: 10px;
+}
+
+.movieCard {
+  width: 220px;
+  height: 400px;
+  background-color: #ffffff;
+  border: 1px solid gray;
+}
+
+.movieCard a {
+  color: rgba(16, 5, 109, 0.863);
+  text-decoration: none;
+}
+
+.movieCard h2 {
+  margin: 0;
+  /* padding: 20px 10px; */
+  margin: 20px auto 0px auto;
+  font-size: 18px;
+}

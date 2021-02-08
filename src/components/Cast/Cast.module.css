@@ -17,3 +17,7 @@
 .castListItem p {
   /* margin: 0 0 5px 0; */
 }
+
+.castListItem img {
+  height: 105px;
+}
