@@ -6,9 +6,7 @@ const URL = "https://api.themoviedb.org/3";
 export function getTrandingMovies() {
   const endPoint = "trending/movie/day";
 
-  return axios
-    .get(`${URL}/${endPoint}?api_key=${KEY}`)
-    .then(({ data }) => data.results);
+  return axios.get(`${URL}/${endPoint}?api_key=${KEY}`).then(({ data }) => data.results);
 }
 
 export function getMovies(query) {
@@ -24,6 +22,11 @@ export function getMovieDetails(movieId) {
 export function getMovieCredits(movieId) {
   const endPoint = "movie";
   return axios.get(`${URL}/${endPoint}/${movieId}/credits?api_key=${KEY}`);
+}
+
+export function getMovieReviews(movieId) {
+  const endPoint = "movie";
+  return axios.get(`${URL}/${endPoint}/${movieId}/reviews?api_key=${KEY}`);
 }
 
 export function getTopRatedMovies() {

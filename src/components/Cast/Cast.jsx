@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { getMovieCredits } from "../../utils/api";
-import styles from "./Cast.module.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import noPhoto from "../../noPhoto.jpg";
+import styles from "./Cast.module.css";
 
 class Cast extends Component {
   state = {
@@ -10,8 +12,13 @@ class Cast extends Component {
 
   componentDidMount() {
     getMovieCredits(this.props.match.params.movieId)
-      .then(({ data }) => this.setState({ movie: data }))
-      .catch((error) => console.log(error));
+      .then(({ data }) => {
+        if (data.cast.length === 0)
+        { return toast.warning("There is no any information") }
+        this.setState({ movie: data })
+      })
+      .catch((error) => toast.error(error));
+    
   }
   render() {
     const url = "https://www.themoviedb.org/t/p/w185";

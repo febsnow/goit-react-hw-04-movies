@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { toast } from "react-toastify";
 import PreLoader from "../../components/Loader/Loader";
 import MovieCard from "../../components/MovieCard/MovieCard";
 import { getMovieDetails } from "../../utils/api";
@@ -14,7 +15,9 @@ class MovieDetailsPage extends Component {
   componentDidMount() {
     this.setState({ loader: true, error: null });
     getMovieDetails(this.props.match.params.movieId)
-      .then(({ data }) => this.setState({ movie: data }))
+      .then(({ data }) => 
+        this.setState({ movie: data })
+      )
       .catch((error) => this.setState({ error: error }))
       .finally(this.setState({ loader: false }));
   }
@@ -30,7 +33,7 @@ class MovieDetailsPage extends Component {
   };
 
   render() {
-    const { movie, loader, error } = this.state;
+    const { movie, loader } = this.state;
     const { path, url } = this.props.match;
 
     return (

@@ -3,6 +3,7 @@ import queryParse from "../../utils/queryParse";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import PreLoader from "../../components/Loader/Loader";
 import { getMovies, getTopRatedMovies } from "../../utils/api";
+import { toast } from "react-toastify";
 // import styles from "./MoviesPage.module.css";
 
 class MoviesPage extends Component {
@@ -19,7 +20,14 @@ class MoviesPage extends Component {
 
   fetchMovies = (query) => {
     getMovies(query).then(({ data }) =>
+    {
+      if (data.results.length === 0)
+      {
+        this.props.history.push( '/movies');
+        return toast.warn("Nothing found")
+      }
       this.setState({ movies: data.results })
+    }
     );
   };
 

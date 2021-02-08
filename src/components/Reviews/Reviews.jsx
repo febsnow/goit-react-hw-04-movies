@@ -1,24 +1,25 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import axios from "axios";
-import styles from "./Reviews.module.css";
 import PreLoader from "../Loader/Loader";
+import { getMovieReviews } from "../../utils/api";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import styles from "./Reviews.module.css";
 
 class Reviews extends Component {
   state = {
     reviews: [],
-    error: null,
     loader: false,
   };
 
   componentDidMount() {
-    this.setState({ error: null, loader: true });
-    axios
-      .get(
-        `https://api.themoviedb.org/3/movie/${this.props.match.params.movieId}/reviews?api_key=baba47ca8377e85152497efe5912a75b&language=en-US&page=1`
-      )
-      .then((data) => this.setState({ reviews: data.data.results }))
-      .catch((error) => this.setState({ error: error }))
+    this.setState({ loader: true });
+    getMovieReviews(this.props.match.params.movieId).then(({ data }) => {
+        if (data.results.length === 0)
+        {return toast.warn("No reviews yet") }
+        this.setState({ reviews: data.results })
+      })
+      .catch((error) => toast.error(error))
       .finally(this.setState({ loader: false }));
   }
 
@@ -27,7 +28,7 @@ class Reviews extends Component {
     return (
       <>
         {loader && <PreLoader />}
-        {reviews.length > 0 ? (
+        {reviews.length > 0 && (
           <ul className={styles.reviewsList}>
             {reviews.map((review) => (
               <li key={review.id}>
@@ -36,8 +37,6 @@ class Reviews extends Component {
               </li>
             ))}
           </ul>
-        ) : (
-          <p>No reviews yet</p>
         )}
       </>
     );

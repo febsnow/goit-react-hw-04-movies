@@ -5,12 +5,9 @@ import TrandingMovies from "./views/TrandingMovies/TrandingMovies";
 import PreLoader from "./components/Loader/Loader";
 import "./components/styles.css";
 import routes from "./routes";
+import { Flip, ToastContainer } from "react-toastify";
 
-const MoviesPageView = lazy(() =>
-  import(
-    "./views/MoviesPage/MoviesPage" /*webpackChunkName: "moviesPageView" */
-  )
-);
+const MoviesPageView = lazy(() => import("./views/MoviesPage/MoviesPage" /*webpackChunkName: "moviesPageView" */));
 
 const MovieDetailsView = lazy(() =>
   import(
@@ -25,18 +22,19 @@ class App extends Component {
     return (
       <>
         <NavBar />
+        <ToastContainer
+          transition={Flip}
+          autoClose={2000}
+          hideProgressBar={true}
+          pauseOnFocusLoss={false}
+          draggable={false}
+          pauseOnHover={false}
+        />
         <Suspense fallback={<PreLoader />}>
           <Switch>
             <Route path={routes.home} exact component={TrandingMovies}></Route>
-            <Route
-              path={routes.movies}
-              exact
-              component={MoviesPageView}
-            ></Route>
-            <Route
-              path={routes.movieDetails}
-              component={MovieDetailsView}
-            ></Route>
+            <Route path={routes.movies} exact component={MoviesPageView}></Route>
+            <Route path={routes.movieDetails} component={MovieDetailsView}></Route>
           </Switch>
         </Suspense>
       </>

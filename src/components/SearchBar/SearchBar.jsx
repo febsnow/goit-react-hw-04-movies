@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import styles from "./SearchBar.module.css";
 
 export default class SearchBar extends Component {
@@ -11,7 +13,7 @@ export default class SearchBar extends Component {
     evt.preventDefault();
     if (this.state.value.trim() === "") {
       this.setState({ value: "" });
-      return alert("Enter something");
+      toast.error("Enter something");
     }
     this.props.onSubmit(this.state.value.toLowerCase().trim());
     this.setState({ value: "" });
