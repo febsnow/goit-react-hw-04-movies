@@ -1,12 +1,17 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import PreLoader from "../Loader/Loader";
-import { getMovieReviews } from "../../utils/api";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+import PreLoader from "../Loader/Loader";
+import { getMovieReviews } from "../../utils/api";
 import styles from "./Reviews.module.css";
 
 class Reviews extends Component {
+static propTypes = {
+    match: PropTypes.object.isRequired,
+  }
+
   state = {
     reviews: [],
     loader: false,
@@ -43,6 +48,5 @@ class Reviews extends Component {
   }
 }
 
-Reviews.propTypes = {};
 
 export default Reviews;

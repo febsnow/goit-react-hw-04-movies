@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import { getMovieCredits } from "../../utils/api";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -6,6 +7,10 @@ import noPhoto from "../../noPhoto.jpg";
 import styles from "./Cast.module.css";
 
 class Cast extends Component {
+  static propTypes = {
+    match: PropTypes.object.isRequired,
+  }
+
   state = {
     movie: null,
   };
@@ -18,15 +23,17 @@ class Cast extends Component {
         this.setState({ movie: data })
       })
       .catch((error) => toast.error(error));
-    
   }
+  
   render() {
     const url = "https://www.themoviedb.org/t/p/w185";
+    const { movie } = this.state;
+
     return (
       <>
-        {this.state.movie && (
+        {movie && (
           <ul className={styles.castList}>
-            {this.state.movie.cast.map((actor) => (
+            {movie.cast.map((actor) => (
               <li key={actor.id} className={styles.castListItem}>
                 <img
                   src={

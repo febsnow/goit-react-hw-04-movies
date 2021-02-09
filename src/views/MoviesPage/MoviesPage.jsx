@@ -1,11 +1,14 @@
 import React, { Component, lazy, Suspense } from "react";
+import PropTypes from "prop-types";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import queryParse from "../../utils/queryParse";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import PreLoader from "../../components/Loader/Loader";
+import NotFoud from "../NotFound/NotFound";
+
 import { getMovies, getTopRatedMovies } from "../../utils/api";
-import { toast } from "react-toastify";
-import routes from "../../routes";
-// import styles from "./MoviesPage.module.css";
 
 const MoviesList = lazy(
   () =>
@@ -15,6 +18,11 @@ const MoviesList = lazy(
 );
 
 class MoviesPage extends Component {
+   static propTypes = {
+    location: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
+  }
+
   state = {
     movies: null,
   };
@@ -54,11 +62,8 @@ class MoviesPage extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { query: prevQuery } = queryParse(prevProps.location.search);
     const { query: newQuery } = queryParse(this.props.location.search);
-    console.log("prev", prevQuery);
-    console.log("new", newQuery);
 
     if (prevQuery !== newQuery && newQuery) {
-      console.log("update");
       this.fetchMovies(newQuery);
     }
   }
@@ -81,6 +86,7 @@ class MoviesPage extends Component {
               }
             />
           )}
+          {!movies && <NotFoud/>}
         </Suspense>
         {/* {movies && (
           <ul className={styles.movieList}>

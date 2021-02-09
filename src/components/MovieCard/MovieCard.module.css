@@ -13,7 +13,7 @@
 }
 
 .additionsList {
-  margin-top: 0;
+  margin-top: 0px;
   margin-bottom: 25px;
   display: flex;
   align-items: center;
@@ -22,14 +22,23 @@
 
 .additionsListItem {
   font-size: 16px;
-  color: #ffff;
+  background-color: rgba(16, 5, 109, 0.863);
   font-weight: 500;
-  color: rgba(16, 5, 109, 0.863);
+  color: #ffffff;
   padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 10px;
+}
+
+.active {
+  color: rgba(16, 5, 109, 0.863);
+  background-color: #ffff;
+}
+
+.additionsListItem:first-child {
+  margin-right: 10px;
 }
 
 .additionsListItem:hover {
-  /* color: rgba(16, 5, 109, 0.863); */
+  color: rgba(16, 5, 109, 0.863);
   background-color: #ffffff;
 }

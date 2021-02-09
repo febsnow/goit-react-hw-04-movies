@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { Link, Route, Switch } from "react-router-dom";
+import { NavLink, Route, Switch } from "react-router-dom";
 import PreLoader from "../Loader/Loader";
 import styles from "./MovieCard.module.css";
 
@@ -23,14 +23,14 @@ export default function MovieCard({ movie, url, path }) {
         <p>{movie.overview}</p>
         <ul className={styles.additionsList}>
           <li>
-            <Link to={`${url}/cast`} className={styles.additionsListItem}>
+            <NavLink to={`${url}/cast`} className={styles.additionsListItem} activeClassName={styles.active} >
               Cast
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to={`${url}/reviews`} className={styles.additionsListItem}>
+            <NavLink to={`${url}/reviews`} className={styles.additionsListItem} activeClassName={styles.active}>
               Reviews
-            </Link>
+            </NavLink>
           </li>
         </ul>
         <Suspense fallback={<PreLoader />}>

@@ -9,5 +9,6 @@
   width: 350px;
   background-color: inherit;
   padding: 5px 10px;
-  border: none;
+  border-radius: 10px;
+  /* border: none; */
 }

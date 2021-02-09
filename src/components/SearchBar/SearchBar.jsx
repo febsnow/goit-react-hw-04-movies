@@ -1,9 +1,14 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "./SearchBar.module.css";
 
 export default class SearchBar extends Component {
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired
+  }
+  
   state = {
     value: "",
     error: null,

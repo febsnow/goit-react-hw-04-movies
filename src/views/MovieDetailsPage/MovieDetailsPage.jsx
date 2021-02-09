@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import PreLoader from "../../components/Loader/Loader";
 import MovieCard from "../../components/MovieCard/MovieCard";
@@ -7,14 +8,19 @@ import { getMovieDetails } from "../../utils/api";
 import styles from "./MovieDetailsPage.module.css";
 
 class MovieDetailsPage extends Component {
+  static propTypes = {
+    match: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
+  }
+
   state = {
     movie: null,
     loader: false,
-    error: null,
   };
 
   componentDidMount() {
-    this.setState({ loader: true, error: null });
+    this.setState({ loader: true});
     getMovieDetails(this.props.match.params.movieId)
       .then(({ data }) => this.setState({ movie: data }))
       .catch((error) => toast.error(error))
