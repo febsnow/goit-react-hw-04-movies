@@ -18,10 +18,10 @@ const MoviesList = lazy(
 );
 
 class MoviesPage extends Component {
-   static propTypes = {
+  static propTypes = {
     location: PropTypes.object.isRequired,
-    history: PropTypes.object.isRequired
-  }
+    history: PropTypes.object.isRequired,
+  };
 
   state = {
     movies: null,
@@ -86,7 +86,7 @@ class MoviesPage extends Component {
               }
             />
           )}
-          {!movies && <NotFoud/>}
+          {!movies && <NotFoud />}
         </Suspense>
         {/* {movies && (
           <ul className={styles.movieList}>
