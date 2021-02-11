@@ -11,8 +11,8 @@ class MovieDetailsPage extends Component {
   static propTypes = {
     match: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
-    history: PropTypes.object.isRequired
-  }
+    history: PropTypes.object.isRequired,
+  };
 
   state = {
     movie: null,
@@ -20,7 +20,7 @@ class MovieDetailsPage extends Component {
   };
 
   componentDidMount() {
-    this.setState({ loader: true});
+    this.setState({ loader: true });
     getMovieDetails(this.props.match.params.movieId)
       .then(({ data }) => this.setState({ movie: data }))
       .catch((error) => toast.error(error))
@@ -48,10 +48,21 @@ class MovieDetailsPage extends Component {
           className={styles.button}
           onClick={this.clickHandler}
         >
-          BACK
+          Back to{" "}
+          {this.props.location?.state?.from &&
+          this.props.location.state.from.pathname !== "/"
+            ? "Search"
+            : "Home"}
         </button>
         {loader && <PreLoader />}
-        {movie && <MovieCard movie={movie} url={url} path={path} />}
+        {movie && (
+          <MovieCard
+            movie={movie}
+            url={url}
+            path={path}
+            location={this.props.location.state}
+          />
+        )}
       </div>
     );
   }

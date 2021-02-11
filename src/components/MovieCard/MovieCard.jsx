@@ -3,7 +3,7 @@ import { NavLink, Route, Switch } from "react-router-dom";
 import PreLoader from "../Loader/Loader";
 import styles from "./MovieCard.module.css";
 
-export default function MovieCard({ movie, url, path }) {
+export default function MovieCard({ movie, url, path, location }) {
   const imgUrl = "https://www.themoviedb.org/t/p/w780";
   const CastList = lazy(() =>
     import("../Cast/Cast" /*webpackChunkName: "cast-list" */)
@@ -23,12 +23,26 @@ export default function MovieCard({ movie, url, path }) {
         <p>{movie.overview}</p>
         <ul className={styles.additionsList}>
           <li>
-            <NavLink to={`${url}/cast`} className={styles.additionsListItem} activeClassName={styles.active} >
+            <NavLink
+              to={{
+                pathname: `${url}/cast`,
+                state: location,
+              }}
+              className={styles.additionsListItem}
+              activeClassName={styles.active}
+            >
               Cast
             </NavLink>
           </li>
           <li>
-            <NavLink to={`${url}/reviews`} className={styles.additionsListItem} activeClassName={styles.active}>
+            <NavLink
+              to={{
+                pathname: `${url}/reviews`,
+                state: location,
+              }}
+              className={styles.additionsListItem}
+              activeClassName={styles.active}
+            >
               Reviews
             </NavLink>
           </li>
